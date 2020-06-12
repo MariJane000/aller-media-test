@@ -1,0 +1,15 @@
+.login-page {
+  display: flex;
+  
+  .login-wrapper {
+    margin: auto;
+    width: 370px;
+  }
+
+  .login-form {
+    padding-top: 30px;
+  }
+  .login-form-button {
+    width: 100%;
+  }
+}
