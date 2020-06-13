@@ -24,12 +24,11 @@ const sendRequest = (method, url, data, config) => {
         data,
         ...axiosConfig,
     });
-
+    console.log(newUrl, 'newUrl')
     return req;
 };
 
 const get = (reqParams) => {
-    console.log('reqParams', reqParams);
     const { url, params = {}, config = {} } = reqParams;
 
     return sendRequest('get', url, null, {

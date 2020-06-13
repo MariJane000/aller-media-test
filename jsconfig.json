@@ -3,11 +3,13 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./src",
     "paths": {
-      "@Components/*": ["Components/*"],
-      "@Utils/*": ["Utils/*"],
-      "@API/*": ["Api/*"],
-      "@Context/*": ["Context/*"],
+      "@Components": ["Components/*"],
       "@Pages/*": ["Pages/*"],
+      "@Context/*": ["Context/*"],
+      "@Routes": ["Routes"],
+      "@Routes/*": ["Routes/*"],
+      "@API/*": ["Api/*"],
+      "@Utils/*": ["Utils/*"],
       "~/*": ["Styles/*"],
       "@/*": ["*"]
     }

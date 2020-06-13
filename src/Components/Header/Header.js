@@ -1,29 +1,20 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import Navigation from '@Components/Navigation/Navigation';
+import { Navigation } from "@Components/Navigation";
 
 import './header.scss';
 
 export const Header = () => {
     return (
         <header className="header">
-            <div className="header-col">
-                {/* <Logo /> */}
+            <div className="header-col"> 
+                <div className="header-title">Articles</div>
+            </div>
+            <div className="header-col"> 
                 <Navigation />
             </div>
         </header>
     );
 };
 
-// Header.defaultProps = {
-//     user: {},
-// };
-
-// Header.propTypes = {
-//     user: propTypes.shape({
-//         role: propTypes.string.isRequired,
-//         email: propTypes.string.isRequired,
-//     }),
-// };
 
 export default Header;

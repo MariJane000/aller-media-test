@@ -1,19 +1,19 @@
 import React from 'react';
 import {
-    DashboardOutlined,
-    LineChartOutlined,
+    AppstoreOutlined,
+    UnorderedListOutlined
 } from '@ant-design/icons';
 
 export const menuItemsMap = [
     {
-        key: '/',
-        name: 'News Grid',
-        icon: <DashboardOutlined />,
+        key: 'articles/grid',
+        name: 'Grid',
+        icon: <AppstoreOutlined />,
     },
     {
-        key: 'news-list',
-        name: 'News List',
-        icon: <LineChartOutlined />,
+        key: 'articles/list',
+        name: 'List',
+        icon: <UnorderedListOutlined />,
     },
 ];
 

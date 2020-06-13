@@ -1,13 +1,35 @@
-export const basedRoutes = [
+import ArticlesPage from "@Pages/ArticlesPage/Loadable";
+import ArticlesGrid from "@Pages/ArticlesPage/ArticlesGrid/Loadable";
+import ArticlesList from "@Pages/ArticlesPage/ArticlesList/Loadable";
+
+
+export const routes = [
     {
         exact: true,
         path: '/',
-        // component: BuyerPage,
+        redirectTo: 'articles',
     },
     {
-        exact: true,
-        path: '/list',
-        // component: NotificationSettingsPage,
+        path: '/articles',
+        component: ArticlesPage,
+        subRoutes: [
+            {
+                exact: true,
+                path: '/articles/grid',
+                component: ArticlesGrid,
+            },
+            {
+                exact: true,
+                path: '/articles/list',
+                component: ArticlesList,
+            },
+            {
+                exact: true,
+                path: '/articles',
+                redirectTo: '/articles/grid',
+            },
+
+        ]
     },
     {
         path: '*',
@@ -15,8 +37,4 @@ export const basedRoutes = [
     },
 ];
 
-
-// import HomePage from 'containers/HomePage/Loadable';
-// import ContactPage from 'containers/ContactPage/Loadable';
-// import NotFoundPage from 'containers/NotFoundPage/Loadable';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import { routes } from './Routes';
+import { routes } from '@Routes';
 
 import { CustomRoute } from '@Components/CustomRoute';
 import { Layout } from '@Components/Layout';
@@ -10,7 +10,7 @@ import { Layout } from '@Components/Layout';
 
 export const App = () => {
 
-    const renderRoutes = (routes) =>
+    const renderRoutes = () =>
         routes.map((r) => <CustomRoute key={r.path} {...r} />);
 
     // const renderLoader = () => (
