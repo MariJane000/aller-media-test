@@ -18,7 +18,7 @@ export const ArticlesGrid = () => {
 
   useEffect(() => {
     setContainerWidth(containerRef.current.offsetWidth);
-  }, [containerRef.current]);
+  }, []);
 
   const { editArticle, deleteArticle, restoreArticle } = useArticleActions();
 
