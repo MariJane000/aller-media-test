@@ -7,8 +7,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "lint": "eslint resources/assets/js/**",
-    "lint:fix": "eslint resources/assets/js/** --fix",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
     "format": "prettier --write \"**/*.+(js|jsx|css|json)\""
   },
   "devDependencies": {
