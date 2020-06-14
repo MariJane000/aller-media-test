@@ -19,11 +19,14 @@ const reduceLinksMapping = (articles) => {
     const columns = get(current, 'columns', []);
 
     columns.forEach((col, colIndex) => {
+      const { title, url, isDeleted } = col;
+
       total[col.url] = {
         rowIndex,
         colIndex,
-        title: col.title,
-        url: col.url,
+        title,
+        url,
+        isDeleted,
       };
     });
 
@@ -89,6 +92,10 @@ export const reducer = (state, action) => {
       break;
     default:
       return newState;
+  }
+
+  if ([EDIT_ARTICLE, DELETE_ARTICLE, RESTORE_ARTICLE].includes(action.type)) {
+    newState.articlesLinksMap = reduceLinksMapping(state.articles);
   }
 
   return newState;

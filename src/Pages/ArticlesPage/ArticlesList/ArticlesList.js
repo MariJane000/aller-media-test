@@ -8,7 +8,9 @@ import './ArticlesList.scss';
 export const ArticlesList = () => {
   const { articlesLinksMap } = useGetArticles();
 
-  const listData = Object.values(articlesLinksMap);
+  const listData = Object.values(articlesLinksMap).filter(
+    (article) => !article.isDeleted
+  );
 
   const renderListItem = (item) => {
     return (
