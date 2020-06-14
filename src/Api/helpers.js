@@ -1,42 +1,15 @@
-import { BASE_API_URL, APP_PREFIXES } from './constants';
+import { BASE_API_URL } from './constants';
 
-export const getPrefix = (apiPrefix) => {
-  let prefix = APP_PREFIXES.V_1;
-
-  switch (apiPrefix) {
-    case 'v2':
-      prefix = APP_PREFIXES.V_2;
-      break;
-    case 'v3':
-      prefix = APP_PREFIXES.V_3;
-      break;
-    case 'none':
-      prefix = '';
-      break;
-    default:
-      prefix = APP_PREFIXES.V_1;
-      break;
-  }
-
-  return prefix;
-};
-
-export const formatAppUrl = (url, apiPrefix) => {
-  const prefix = getPrefix(apiPrefix);
-
-  if (prefix) {
-    return `${BASE_API_URL}/${prefix}/${url}`;
-  }
-
+export const formatAppUrl = (url) => {
   return `${BASE_API_URL}/${url}`;
 };
 
-export const getUrl = (url, apiPrefix) => {
+export const getUrl = (url) => {
   if (url.includes('http')) {
     return url;
   }
 
-  return formatAppUrl(url, apiPrefix);
+  return formatAppUrl(url);
 };
 
 export default getUrl;

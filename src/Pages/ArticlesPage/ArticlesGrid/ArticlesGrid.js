@@ -38,7 +38,7 @@ export const ArticlesGrid = () => {
 
   const showRestorePopup = (key) => {
     message.config({
-      duration: 5,
+      duration: 3,
       maxCount: 1,
     });
 
