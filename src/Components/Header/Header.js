@@ -6,11 +6,13 @@ import './header.scss';
 export const Header = () => {
     return (
         <header className="header">
-            <div className="header-col"> 
-                <div className="header-title">Articles</div>
-            </div>
-            <div className="header-col"> 
-                <Navigation />
+            <div className="header-container">
+                <div className="header-col"> 
+                    <div className="header-title">Articles</div>
+                </div>
+                <div className="header-col"> 
+                    <Navigation />
+                </div>
             </div>
         </header>
     );
