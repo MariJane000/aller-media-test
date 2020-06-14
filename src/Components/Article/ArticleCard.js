@@ -2,23 +2,26 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, Button, Form, Input } from 'antd';
-
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ARTCILE_CARD_HEIGHT, CONTAINER_WIDTH } from '@Utils/constants';
 
 import './Article.scss';
 
 export const ArticleCard = (props) => {
-  const { title, url, imageUrl, width, onEditArticle, onDeleteArticle } = props;
+  const {
+    title,
+    url,
+    imageUrl,
+    imgWidth,
+    imgHeight,
+    onEditArticle,
+    onDeleteArticle,
+  } = props;
   const [isEditing, setIsEditing] = useState(false);
 
   const { Meta } = Card;
   const [form] = Form.useForm();
 
   const getImageUrl = () => {
-    const imgWidth = (CONTAINER_WIDTH / 12) * width;
-    const imgHeight = ARTCILE_CARD_HEIGHT;
-
     return `${imageUrl}&width=${imgWidth}&height=${imgHeight}`;
   };
 
@@ -106,7 +109,8 @@ export const ArticleCard = (props) => {
 ArticleCard.propTypes = {
   title: PropTypes.string,
   url: PropTypes.string,
-  width: PropTypes.number,
+  imgWidth: PropTypes.number,
+  imgHeight: PropTypes.number,
   imageUrl: PropTypes.string,
   onEditArticle: PropTypes.func,
   onDeleteArticle: PropTypes.func,

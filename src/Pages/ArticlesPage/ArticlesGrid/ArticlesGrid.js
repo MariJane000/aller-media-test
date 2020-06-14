@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useGetArticles } from '@Context/Articles/Hooks/useGetArticles';
 import useArticleActions from '@Context/Articles/Hooks/useArticleActions';
 import './ArticlesGrid.scss';
 import { ArticleCard } from '@Components/Article';
 import { Row, Col, message, Button } from 'antd';
+import {
+  ARTCILE_CARD_GUTTER_Y,
+  ARTCILE_CARD_GUTTER_X,
+  ARTCILE_CARD_HEIGHT,
+  CONTAINER_WIDTH,
+} from '@Utils/constants';
 
 export const ArticlesGrid = () => {
   const { articles } = useGetArticles();
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(CONTAINER_WIDTH);
+
+  useEffect(() => {
+    setContainerWidth(containerRef.current.offsetWidth);
+  }, [containerRef.current]);
 
   const { editArticle, deleteArticle, restoreArticle } = useArticleActions();
 
@@ -52,11 +64,16 @@ export const ArticlesGrid = () => {
   };
 
   const renderArticle = (article) => {
+    const imgWidth = (containerWidth / 12) * article.width;
+    const imgHeight = ARTCILE_CARD_HEIGHT;
+
     return (
       !article.isDeleted && (
         <Col span={article.width * 2} key={article.url}>
           <ArticleCard
             {...article}
+            imgWidth={imgWidth}
+            imgHeight={imgHeight}
             onEditArticle={editArtcileHandler}
             onDeleteArticle={deleteArtcileHandler}
           />
@@ -66,7 +83,7 @@ export const ArticlesGrid = () => {
   };
 
   const renderArticleRow = (articleRow, idx) => (
-    <Row gutter={[16, 16]} key={idx}>
+    <Row gutter={[ARTCILE_CARD_GUTTER_X, ARTCILE_CARD_GUTTER_Y]} key={idx}>
       {articleRow.columns.map((article) => renderArticle(article))}
     </Row>
   );
@@ -74,7 +91,11 @@ export const ArticlesGrid = () => {
   const renderArticles = () =>
     articles.map((articleRow, idx) => renderArticleRow(articleRow, idx));
 
-  return <div className="page-content">{renderArticles()}</div>;
+  return (
+    <div className="page-content" ref={containerRef}>
+      {renderArticles()}
+    </div>
+  );
 };
 
 export default ArticlesGrid;
