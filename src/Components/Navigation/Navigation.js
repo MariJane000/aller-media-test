@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { menuItemsMap } from '@Routes/mapRolesToMenu';
+import { navList } from '@Routes/navList';
 
 import './Navigation.scss';
 
 export const Navigation = () => {
   const renderMenuItems = () => {
-    return menuItemsMap.map((menuItem) => {
+    return navList.map((menuItem) => {
       const { key, icon } = menuItem;
 
       return (
