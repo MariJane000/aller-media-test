@@ -4,32 +4,31 @@ import { setArticles, setArticlesLoader } from '../Store/actions';
 import { get } from 'lodash';
 
 export const useGetArticles = () => {
-    const {
-        state: { articles, articlesLinksMap, articlesLoader },
-        dispatch,
-    } = useArticlesContext();
+  const {
+    state: { articles, articlesLinksMap, articlesLoader },
+    dispatch,
+  } = useArticlesContext();
 
-    const getArticlesRequest = () => { 
-        dispatch(setArticlesLoader(true));
+  const getArticlesRequest = () => {
+    dispatch(setArticlesLoader(true));
 
+    getArticles()
+      .then((response) => {
+        const articles = get(response, 'data[0]', []);
+        dispatch(setArticlesLoader(false));
+        dispatch(setArticles(articles));
+      })
+      .catch(() => {
+        dispatch(setArticlesLoader(false));
+      });
+  };
 
-        getArticles()
-            .then((response) => {
-                const articles = get(response, 'data[0]', []);
-                dispatch(setArticlesLoader(false));
-                dispatch(setArticles(articles));
-            })
-            .catch(() => {
-                dispatch(setArticlesLoader(false));
-            });
-    };
-
-    return {
-        articles, 
-        articlesLoader, 
-        articlesLinksMap,
-        getArticles: getArticlesRequest
-    };
+  return {
+    articles,
+    articlesLoader,
+    articlesLinksMap,
+    getArticles: getArticlesRequest,
+  };
 };
 
 export default useGetArticles;

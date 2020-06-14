@@ -4,121 +4,112 @@ import propTypes from 'prop-types';
 import { Card, Button, Form, Input } from 'antd';
 
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { ARTCILE_CARD_HEIGHT , CONTAINER_WIDTH } from '@Utils/constants';
+import { ARTCILE_CARD_HEIGHT, CONTAINER_WIDTH } from '@Utils/constants';
 
 import './Article.scss';
 
 export const ArticleCard = (props) => {
-    const { title, url, imageUrl, width, onEditArticle, onDeleteArticle } = props;
-    const [isEditing, setIsEditing] = useState(false)
+  const { title, url, imageUrl, width, onEditArticle, onDeleteArticle } = props;
+  const [isEditing, setIsEditing] = useState(false);
 
-    const { Meta } = Card;
-    const [form] = Form.useForm();
+  const { Meta } = Card;
+  const [form] = Form.useForm();
 
-    const getImageUrl = () => {
-        const imgWidth = CONTAINER_WIDTH/12*width;
-        const imgHeight = ARTCILE_CARD_HEIGHT;
+  const getImageUrl = () => {
+    const imgWidth = (CONTAINER_WIDTH / 12) * width;
+    const imgHeight = ARTCILE_CARD_HEIGHT;
 
-        return `${imageUrl}&width=${imgWidth}&height=${imgHeight}`
-    }
+    return `${imageUrl}&width=${imgWidth}&height=${imgHeight}`;
+  };
 
-    const getImage = () => <img src={getImageUrl()} alt={title} />;
+  const getImage = () => <img src={getImageUrl()} alt={title} />;
 
-    const editArticleHandler = () => {
-        setIsEditing(true);
-    }
+  const editArticleHandler = () => {
+    setIsEditing(true);
+  };
 
-    const deleteArticleHandler = () => {
-        onDeleteArticle(url);
-    }
+  const deleteArticleHandler = () => {
+    onDeleteArticle(url);
+  };
 
-    const getCardActions = () => {
-        return [
-            <Button
-                key="edit"
-                type="link"
-                icon={<EditOutlined />}
-                onClick={editArticleHandler}
-            />,
-            <Button
-                key="remove"
-                type="link"
-                danger
-                icon={<DeleteOutlined />}
-                onClick={deleteArticleHandler}
-          />
-        ]
-    }
+  const getCardActions = () => {
+    return [
+      <Button
+        key="edit"
+        type="link"
+        icon={<EditOutlined />}
+        onClick={editArticleHandler}
+      />,
+      <Button
+        key="remove"
+        type="link"
+        danger
+        icon={<DeleteOutlined />}
+        onClick={deleteArticleHandler}
+      />,
+    ];
+  };
 
-    const saveArtcileHanlder = (values) => {
-        setIsEditing(false);
-        onEditArticle(url, values);
-    }
+  const saveArtcileHanlder = (values) => {
+    setIsEditing(false);
+    onEditArticle(url, values);
+  };
 
-    
-    const cancelArtcileHanlder = () => {
-        form.resetFields();
-        setIsEditing(false);
-      };
+  const cancelArtcileHanlder = () => {
+    form.resetFields();
+    setIsEditing(false);
+  };
 
-    const renderEditableTitle = () => (
-        <Form form={form} initialValues={{title: title}} onFinish={saveArtcileHanlder}>
-            <Form.Item name="title" rules={[{ required: true }]}>
-                <Input />
-            </Form.Item>
-            <ul className='ant-card-actions ant-card-form-actions'>
-                <li>
-                    <Form.Item >
-                        <Button type="link" htmlType="submit">
-                            SAVE
-                        </Button>
-                    </Form.Item>
-                </li>
-                <li>
-                    <Form.Item >
-                        <Button type="link" danger onClick={cancelArtcileHanlder}>
-                            CANCEL
-                        </Button>
-                    </Form.Item>
-                </li>
-            </ul>
+  const renderEditableTitle = () => (
+    <Form
+      form={form}
+      initialValues={{ title: title }}
+      onFinish={saveArtcileHanlder}
+    >
+      <Form.Item name="title" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+      <ul className="ant-card-actions ant-card-form-actions">
+        <li>
+          <Form.Item>
+            <Button type="link" htmlType="submit">
+              SAVE
+            </Button>
+          </Form.Item>
+        </li>
+        <li>
+          <Form.Item>
+            <Button type="link" danger onClick={cancelArtcileHanlder}>
+              CANCEL
+            </Button>
+          </Form.Item>
+        </li>
+      </ul>
+    </Form>
+  );
 
-        </Form>
-    )
+  const getTitle = () => (isEditing ? renderEditableTitle() : title);
 
-    const getTitle = () => (
-        isEditing ? renderEditableTitle() : title
-    )
-
-    const getLink = () => (
-        !isEditing && <Button className="card-link" type="link" href={url} target="_blank"/>
-    )
-
-    return (
-        <Card       
-            cover={getImage()}
-            hoverable={true}
-            actions={getCardActions()}
-           
-        >
-        {getLink()}
-        <Meta
-            title={getTitle()} 
-        />
-        </Card>
+  const getLink = () =>
+    !isEditing && (
+      <Button className="card-link" type="link" href={url} target="_blank" />
     );
+
+  return (
+    <Card cover={getImage()} hoverable={true} actions={getCardActions()}>
+      {getLink()}
+      <Meta title={getTitle()} />
+    </Card>
+  );
 };
 
-
-
 ArticleCard.propTypes = {
-    title: propTypes.string,
-    url: propTypes.string,
-    width: propTypes.number,
-    imageUrl: propTypes.string,
-    onEditArticle: propTypes.func,
-    onDeleteArticle: propTypes.func,
+  title: propTypes.string,
+  url: propTypes.string,
+  width: propTypes.number,
+  imageUrl: propTypes.string,
+  onEditArticle: propTypes.func,
+  onDeleteArticle: propTypes.func,
 };
 
 export default ArticleCard;
-

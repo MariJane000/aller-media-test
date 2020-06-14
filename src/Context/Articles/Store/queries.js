@@ -1,12 +1,13 @@
 import api from '@API/api';
 
-const articlesExternalUrl = 'https://storage.googleapis.com/aller-structure-task/test_data.json';
+const articlesExternalUrl =
+  'https://storage.googleapis.com/aller-structure-task/test_data.json';
 
 export const getArticles = () => {
-    const baseObj = {
-        url: articlesExternalUrl,
-        data: {}
-    };
+  const baseObj = {
+    url: articlesExternalUrl,
+    data: {},
+  };
 
-    return api.get(baseObj);
+  return api.get(baseObj);
 };

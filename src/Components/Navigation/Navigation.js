@@ -6,26 +6,24 @@ import { menuItemsMap } from '@Routes/mapRolesToMenu';
 import './Navigation.scss';
 
 export const Navigation = () => {
+  const renderMenuItems = () => {
+    return menuItemsMap.map((menuItem) => {
+      const { key, icon } = menuItem;
 
-    const renderMenuItems = () => {
+      return (
+        <NavLink
+          key={key}
+          activeClassName="is-active"
+          to={`/${key}`}
+          className="navigation-item"
+        >
+          {icon}
+        </NavLink>
+      );
+    });
+  };
 
-        return menuItemsMap.map((menuItem) => {
-            const { key, icon } = menuItem;
-
-            return (
-                <NavLink
-                    key={key}
-                    activeClassName="is-active"
-                    to={`/${key}`}
-                    className="navigation-item"
-                >
-                    {icon}
-                </NavLink>
-            );
-        });
-    };
-
-    return <nav className="navigation">{renderMenuItems()}</nav>;
+  return <nav className="navigation">{renderMenuItems()}</nav>;
 };
 
 export default Navigation;

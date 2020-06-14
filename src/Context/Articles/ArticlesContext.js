@@ -7,18 +7,16 @@ const articlesStore = createContext(initialState);
 const { Provider } = articlesStore;
 
 const ArticlesContext = (props) => {
-    const { children } = props;
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const { children } = props;
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    return (
-        <Provider value={{ state, dispatch }}>
-            {Children.only(children)}
-        </Provider>
-    );
+  return (
+    <Provider value={{ state, dispatch }}>{Children.only(children)}</Provider>
+  );
 };
 
 ArticlesContext.propTypes = {
-    children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export { articlesStore, ArticlesContext };

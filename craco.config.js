@@ -1,4 +1,4 @@
-const CracoAlias = require('craco-alias')
+const CracoAlias = require('craco-alias');
 
 module.exports = {
   plugins: [
@@ -6,8 +6,8 @@ module.exports = {
       plugin: CracoAlias,
       options: {
         source: 'jsconfig',
-        baseUrl: "./src",
-      }
-    }
-  ]
-}
+        baseUrl: './src',
+      },
+    },
+  ],
+};

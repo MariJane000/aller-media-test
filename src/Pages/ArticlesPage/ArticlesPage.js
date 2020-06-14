@@ -7,38 +7,35 @@ import { ArticlesContext } from '@Context/Articles';
 import { Loader } from '@Components/Loader';
 
 export const ArticlesPage = (props) => {
-    
-    const { articlesLoader, getArticles } = useGetArticles();
+  const { articlesLoader, getArticles } = useGetArticles();
 
-    useEffect(getArticles, [])
-    
-    
-    const renderLoader = () => {
-        return <Loader size="large" fullscreen />;
-    };
+  useEffect(getArticles, []);
 
-    const renderArticlesContent = () => {
-        return props.children;
-    };
+  const renderLoader = () => {
+    return <Loader size="large" fullscreen />;
+  };
 
-    return (
-        <div className="page">
-            {articlesLoader ? renderLoader() : renderArticlesContent()}
-        </div>
-    );
+  const renderArticlesContent = () => {
+    return props.children;
+  };
+
+  return (
+    <div className="page">
+      {articlesLoader ? renderLoader() : renderArticlesContent()}
+    </div>
+  );
 };
 
 ArticlesPage.propTypes = {
-    children: PropTypes.node,
+  children: PropTypes.node,
 };
 
 const ArticlesPageWithContext = () => (routerProps) => {
-    return (
-        <ArticlesContext>
-            <ArticlesPage {...routerProps} />
-        </ArticlesContext>
-
-    );
+  return (
+    <ArticlesContext>
+      <ArticlesPage {...routerProps} />
+    </ArticlesContext>
+  );
 };
 
 export default ArticlesPageWithContext();
