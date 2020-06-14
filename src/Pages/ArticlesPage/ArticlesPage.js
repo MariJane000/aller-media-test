@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useGetArticles } from '@Context/Articles/Hooks/useGetArticles';
 import { ArticlesContext } from '@Context/Articles';
 
-import Loader from '@Components/Loader/Loader';
+import { Loader } from '@Components/Loader';
 
 export const ArticlesPage = (props) => {
     

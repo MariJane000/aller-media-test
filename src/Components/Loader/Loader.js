@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 import './Loader.scss';
 
-const Loader = (props) => {
+export const Loader = (props) => {
     const { size, fullscreen, type } = props;
 
     return (
