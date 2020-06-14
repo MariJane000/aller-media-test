@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { Card, Button, Form, Input } from 'antd';
 
@@ -104,12 +104,12 @@ export const ArticleCard = (props) => {
 };
 
 ArticleCard.propTypes = {
-  title: propTypes.string,
-  url: propTypes.string,
-  width: propTypes.number,
-  imageUrl: propTypes.string,
-  onEditArticle: propTypes.func,
-  onDeleteArticle: propTypes.func,
+  title: PropTypes.string,
+  url: PropTypes.string,
+  width: PropTypes.number,
+  imageUrl: PropTypes.string,
+  onEditArticle: PropTypes.func,
+  onDeleteArticle: PropTypes.func,
 };
 
 export default ArticleCard;

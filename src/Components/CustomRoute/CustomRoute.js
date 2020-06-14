@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 export const CustomRoute = (props) => {
@@ -19,8 +19,7 @@ export const CustomRoute = (props) => {
 
     return (
       <Component key={path} {...componentProps}>
-        {' '}
-        {renderSubRoutes(subRoutes)}{' '}
+        {renderSubRoutes(subRoutes)}
       </Component>
     );
   };
@@ -35,11 +34,11 @@ export const CustomRoute = (props) => {
 };
 
 CustomRoute.propTypes = {
-  path: propTypes.string,
-  redirectTo: propTypes.string,
-  exact: propTypes.bool,
-  component: propTypes.object,
-  subRoutes: propTypes.array,
+  path: PropTypes.string,
+  redirectTo: PropTypes.string,
+  exact: PropTypes.bool,
+  component: PropTypes.object,
+  subRoutes: PropTypes.array,
 };
 
 export default CustomRoute;

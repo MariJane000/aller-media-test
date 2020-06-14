@@ -10,9 +10,7 @@ export const ArticlesGrid = () => {
 
   const { editArticle, deleteArticle, restoreArticle } = useArticleActions();
 
-  const editArtcileHandler = (key, values) => {
-    editArticle(key, values);
-  };
+  const editArtcileHandler = (key, values) => editArticle(key, values);
 
   const deleteArtcileHandler = (key) => {
     deleteArticle(key);

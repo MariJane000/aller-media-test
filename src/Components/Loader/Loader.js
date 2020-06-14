@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spin } from 'antd';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import './Loader.scss';
 
@@ -21,9 +21,9 @@ Loader.defaultProps = {
 };
 
 Loader.propTypes = {
-  size: propTypes.oneOf(['small', 'default', 'large']),
-  fullscreen: propTypes.bool,
-  type: propTypes.oneOf(['light', 'dark']),
+  size: PropTypes.oneOf(['small', 'default', 'large']),
+  fullscreen: PropTypes.bool,
+  type: PropTypes.oneOf(['light', 'dark']),
 };
 
 export default Loader;

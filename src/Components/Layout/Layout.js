@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import { Header } from '../Header';
 import './Layout.scss';
@@ -19,3 +20,7 @@ export const Layout = (props) => {
 };
 
 export default Layout;
+
+Layout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
