@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { useGetArticles } from '@Context/Articles/Hooks/useGetArticles';
-import Loader from '@Components/Loader/Loader';
 import { ArticlesContext } from '@Context/Articles';
-import { Switch, Route } from 'react-router-dom';
-// import './ArticlesGrid.scss';
+
+import Loader from '@Components/Loader/Loader';
 
 export const ArticlesPage = (props) => {
+    
     const { articlesLoader, getArticles } = useGetArticles();
 
-    useEffect(() => {
-        getArticles();
-    }, [])
+    useEffect(getArticles, [])
+    
     
     const renderLoader = () => {
-        return <Loader size="large" fullscreen style="white" />;
+        return <Loader size="large" fullscreen />;
     };
 
     const renderArticlesContent = () => {
@@ -25,6 +26,10 @@ export const ArticlesPage = (props) => {
             {articlesLoader ? renderLoader() : renderArticlesContent()}
         </div>
     );
+};
+
+ArticlesPage.propTypes = {
+    children: PropTypes.node,
 };
 
 const ArticlesPageWithContext = () => (routerProps) => {

@@ -24,7 +24,7 @@ const sendRequest = (method, url, data, config) => {
         data,
         ...axiosConfig,
     });
-    console.log(newUrl, 'newUrl')
+    
     return req;
 };
 

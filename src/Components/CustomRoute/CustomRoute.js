@@ -1,19 +1,19 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 export const CustomRoute = (props) => {
    
 
     const renderRedirectRoute = (redirectProps) => {
-        console.log('redirectProps', redirectProps)
-        // debugger;
-        return <Redirect from={redirectProps.path} to={redirectProps.redirectTo} />
+        const { path, redirectTo } = redirectProps;
+        return <Redirect key={path} from={path} to={redirectTo} />
     }
 
     const renderSubRoutes = (subRoutes) => {
         return (
             <Switch>
-                {subRoutes.map((routeProps, i) => (
+                {subRoutes.map((routeProps) => (
                     renderRoute(routeProps)
                 ))}
 
@@ -22,13 +22,12 @@ export const CustomRoute = (props) => {
     };
 
     const renderComponentRoute = (componentProps) => {
-        const  { component: Component, subRoutes = [] } = componentProps;
+    const  { component: Component, path, subRoutes = [] } = componentProps;
 
-        return <Component {...componentProps}> {renderSubRoutes(subRoutes)} </Component>
+        return <Component key={path} {...componentProps}> {renderSubRoutes(subRoutes)} </Component>
     }
 
     const renderRoute = (props) => {
-        // debugger
         return  props.redirectTo ? renderRedirectRoute(props) : renderComponentRoute(props);
     }
 
@@ -37,6 +36,15 @@ export const CustomRoute = (props) => {
             render={() => renderRoute(props)}
         />
     )
+};
+
+
+CustomRoute.propTypes = {
+    path: propTypes.string,
+    redirectTo: propTypes.string,
+    exact: propTypes.bool,
+    component: propTypes.object,
+    subRoutes: propTypes.array,
 };
 
 export default CustomRoute;

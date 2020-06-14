@@ -5,13 +5,13 @@ import propTypes from 'prop-types';
 import './Loader.scss';
 
 const Loader = (props) => {
-    const { size, fullscreen, style } = props;
+    const { size, fullscreen, type } = props;
 
     return (
         <div
             className={`loader ${
                 fullscreen ? 'loader-fullscreen' : ''
-            } ${style}`}
+            } ${type}`}
         >
             <Spin size={size} />
         </div>
@@ -21,11 +21,13 @@ const Loader = (props) => {
 Loader.defaultProps = {
     size: 'default',
     fullscreen: false,
+    type: 'light'
 };
 
 Loader.propTypes = {
     size: propTypes.oneOf(['small', 'default', 'large']),
     fullscreen: propTypes.bool,
+    type: propTypes.oneOf(['light', 'dark']),
 };
 
 export default Loader;

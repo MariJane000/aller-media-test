@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
-import { Card, Button } from 'antd';
+import { Card, Button, Form, Input } from 'antd';
+
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ARTCILE_CARD_HEIGHT , CONTAINER_WIDTH } from '@Utils/constants';
 
 import './Article.scss';
 
 export const ArticleCard = (props) => {
-    const { title, url, imageUrl, width } = props;
+    const { title, url, imageUrl, width, onEditArticle, onDeleteArticle } = props;
     const [isEditing, setIsEditing] = useState(false)
+
     const { Meta } = Card;
+    const [form] = Form.useForm();
 
     const getImageUrl = () => {
         const imgWidth = CONTAINER_WIDTH/12*width;
@@ -19,14 +22,14 @@ export const ArticleCard = (props) => {
         return `${imageUrl}&width=${imgWidth}&height=${imgHeight}`
     }
 
-    const getImage = () => <img src={getImageUrl()} />;
+    const getImage = () => <img src={getImageUrl()} alt={title} />;
 
     const editArticleHandler = () => {
-
+        setIsEditing(true);
     }
 
     const deleteArticleHandler = () => {
-        
+        onDeleteArticle(url);
     }
 
     const getCardActions = () => {
@@ -47,16 +50,61 @@ export const ArticleCard = (props) => {
         ]
     }
 
+    const saveArtcileHanlder = (values) => {
+        setIsEditing(false);
+        onEditArticle(url, values);
+    }
+
+    
+    const cancelArtcileHanlder = () => {
+        form.resetFields();
+        setIsEditing(false);
+      };
+
+    const renderEditableTitle = () => (
+        <Form form={form} initialValues={{title: title}} onFinish={saveArtcileHanlder}>
+            <Form.Item name="title" rules={[{ required: true }]}>
+                <Input />
+            </Form.Item>
+            <ul className='ant-card-actions ant-card-form-actions'>
+                <li>
+                    <Form.Item >
+                        <Button type="link" htmlType="submit">
+                            SAVE
+                        </Button>
+                    </Form.Item>
+                </li>
+                <li>
+                    <Form.Item >
+                        <Button type="link" danger onClick={cancelArtcileHanlder}>
+                            CANCEL
+                        </Button>
+                    </Form.Item>
+                </li>
+            </ul>
+
+        </Form>
+    )
+
+    const getTitle = () => (
+        isEditing ? renderEditableTitle() : title
+    )
+
+    const getLink = () => (
+        !isEditing && <Button className="card-link" type="link" href={url} target="_blank"/>
+    )
+
     return (
         <Card       
             cover={getImage()}
             hoverable={true}
             actions={getCardActions()}
-        >
-        <Meta
-            title={title} 
-        />
            
+        >
+        {getLink()}
+        <Meta
+            title={getTitle()} 
+        />
         </Card>
     );
 };
@@ -66,8 +114,10 @@ export const ArticleCard = (props) => {
 ArticleCard.propTypes = {
     title: propTypes.string,
     url: propTypes.string,
-    width: propTypes.string,
+    width: propTypes.number,
     imageUrl: propTypes.string,
+    onEditArticle: propTypes.func,
+    onDeleteArticle: propTypes.func,
 };
 
 export default ArticleCard;

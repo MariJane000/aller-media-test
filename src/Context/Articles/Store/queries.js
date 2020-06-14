@@ -7,6 +7,6 @@ export const getArticles = () => {
         url: articlesExternalUrl,
         data: {}
     };
-    console.log('baseObj',baseObj)
+
     return api.get(baseObj);
 };

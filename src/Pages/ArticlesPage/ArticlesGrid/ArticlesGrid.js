@@ -1,33 +1,85 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { useGetArticles } from '@Context/Articles/Hooks/useGetArticles';
-import Loader from '@Components/Loader/Loader';
+import useArticleActions from '@Context/Articles/Hooks/useArticleActions';
 import './ArticlesGrid.scss';
 import { ArticleCard } from '@Components/Article';
-import { Row, Col } from 'antd';
+import { Row, Col, message, Button } from 'antd';
 
 export const ArticlesGrid = () => {
-    const { articles, getArticles } = useGetArticles();
+    const { articles } = useGetArticles();
+
+    const { editArticle, deleteArticle, restoreArticle } = useArticleActions();
+
+    const editArtcileHandler = (key, values) => {
+        editArticle(key, values);
+    }
+
+    const deleteArtcileHandler = (key) => {
+        deleteArticle(key);
+        closeRestorePopup();
+        showRestorePopup(key)
+    }
+
+    const restoreArticleHandler = (key) => {
+        restoreArticle(key);
+        closeRestorePopup();
+    }
 
 
-    const renderArticle = (article) => (
-        <ArticleCard {...article}/>
+    const restoreButton = (key) => (
+        <Button
+            type="link"
+            onClick={() => restoreArticleHandler(key)}
+        >
+            Restore
+        </Button>
     )
 
-    const renderArticleCol = (col) => (
-        <Col span={col.width*2}>
-            {renderArticle(col)}
-        </Col>
+    const restoreMessage = (key) => (
+        <span>
+            Article has been deleted. 
+            { restoreButton(key) }
+        </span>
     )
 
-    const renderArticleRow = (articleRow) => (
-        <Row gutter={[16,16]}>
-            { articleRow.columns.map(articleCol => renderArticleCol(articleCol)) }
+
+
+    const showRestorePopup = (key) => {
+        message.config({
+            duration: 5,
+            maxCount: 1,
+        });
+
+        message.info({
+            content: restoreMessage(key),
+        });
+    };
+
+    const closeRestorePopup = () => {
+        message.destroy()
+    };
+
+    const renderArticle = (article) => {
+        return !article.isDeleted && (
+            <Col span={article.width*2} key={article.url}>
+                <ArticleCard 
+                    {...article}
+                    onEditArticle={editArtcileHandler}
+                    onDeleteArticle={deleteArtcileHandler}
+                />
+            </Col>
+        )
+    }
+
+    const renderArticleRow = (articleRow, idx) => (
+        <Row gutter={[16,16]} key={idx} >
+            { articleRow.columns.map((article) => renderArticle(article)) }
         </Row>
     )
 
 
     const renderArticles = () => (
-        articles.map(articleRow => renderArticleRow(articleRow))
+        articles.map((articleRow, idx) => renderArticleRow(articleRow, idx))
     )
     
 

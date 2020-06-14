@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { get } from 'lodash';
 
 import { menuItemsMap } from '@Routes/mapRolesToMenu';
 
@@ -11,7 +10,7 @@ export const Navigation = () => {
     const renderMenuItems = () => {
 
         return menuItemsMap.map((menuItem) => {
-            const { key, icon, name } = menuItem;
+            const { key, icon } = menuItem;
 
             return (
                 <NavLink
@@ -21,7 +20,6 @@ export const Navigation = () => {
                     className="navigation-item"
                 >
                     {icon}
-                    {/* {name} */}
                 </NavLink>
             );
         });

@@ -5,7 +5,7 @@ import { get } from 'lodash';
 
 export const useGetArticles = () => {
     const {
-        state: { articles, articlesLoader },
+        state: { articles, articlesLinksMap, articlesLoader },
         dispatch,
     } = useArticlesContext();
 
@@ -15,7 +15,6 @@ export const useGetArticles = () => {
 
         getArticles()
             .then((response) => {
-                console.log(response);
                 const articles = get(response, 'data[0]', []);
                 dispatch(setArticlesLoader(false));
                 dispatch(setArticles(articles));
@@ -28,6 +27,7 @@ export const useGetArticles = () => {
     return {
         articles, 
         articlesLoader, 
+        articlesLinksMap,
         getArticles: getArticlesRequest
     };
 };
