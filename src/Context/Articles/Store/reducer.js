@@ -32,6 +32,21 @@ const reduceLinksMapping = (articles) => {
     }, {})
 }
 
+const updateArticle = (state, articleKey, patch) => {
+    const { articles, articlesLinksMap } = state;
+    
+    const { rowIndex, colIndex } = articlesLinksMap[articleKey];
+    
+    const newArticles = [...articles];
+
+    newArticles[rowIndex].columns[colIndex] = {
+        ...newArticles[rowIndex].columns[colIndex],
+        ...patch
+    };
+
+    return newArticles;
+};
+
 const updateArticlesOnEdit = (state, action) => {
     const { articleKey, articleValues } = action;
     const { articles, articlesLinksMap } = state;
@@ -47,35 +62,11 @@ const updateArticlesOnEdit = (state, action) => {
     return newArticles;
 }
 
-const updateArticlesOnDelete = (state, articleKey) => {
-    const { articles, articlesLinksMap } = state;
-    
-    const { rowIndex, colIndex } = articlesLinksMap[articleKey];
-    
-    const newArticles = [...articles];
+const updateArticleOnDelete = (state, articleKey) => 
+    updateArticle(state, articleKey, {isDeleted: true});
 
-    newArticles[rowIndex].columns[colIndex] = {
-        ...newArticles[rowIndex].columns[colIndex],
-        isDeleted: true
-    };
-
-    return newArticles;
-}
-
-const updateArticlesOnRestore = (state, articleKey) => {
-    const { articles, articlesLinksMap } = state;
-    
-    const { rowIndex, colIndex } = articlesLinksMap[articleKey];
-    
-    const newArticles = [...articles];
-
-    newArticles[rowIndex].columns[colIndex] = {
-        ...newArticles[rowIndex].columns[colIndex],
-        isDeleted: false
-    };
-
-    return newArticles;
-}
+const updateArticleOnRestore = (state, articleKey) => 
+    updateArticle(state, articleKey, {isDeleted: false});
 
 
 export const reducer = (state, action) => {
@@ -93,10 +84,10 @@ export const reducer = (state, action) => {
             newState.articles = updateArticlesOnEdit(state, action);
             break;
         case DELETE_ARTICLE:
-            newState.articles = updateArticlesOnDelete(state, action.articleKey);
+            newState.articles = updateArticleOnDelete(state, action.articleKey);
             break;
         case RESTORE_ARTICLE:
-            newState.articles = updateArticlesOnRestore(state, action.articleKey);
+            newState.articles = updateArticleOnRestore(state, action.articleKey);
             break;
         default:
             return newState;
