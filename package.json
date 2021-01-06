@@ -15,7 +15,7 @@
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-react": "^7.0.0",
     "@loadable/component": "^5.6.1",
-    "axios": "^0.19",
+    "axios": "^0.21",
     "babel-eslint": "^10.1.0",
     "babel-preset-react": "^6.24.1",
     "craco-alias": "^2.1.1",
